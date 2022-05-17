@@ -3,10 +3,12 @@
 
 namespace gpio
 {
-    enum class GPIOMode
+    enum class GPIOMode : uint8_t
     {
-        inFloating = 0x4,
-        outPushPull_50MHz = 0x3
+        in_Floating = 0x4,
+        out_PushPull_50MHz = 0x3,
+        out_OpenDrain_50MHz = 0x7,
+        outAlt_PushPull_50MHz = 0xB
     };
 
     class Pin

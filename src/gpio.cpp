@@ -9,7 +9,7 @@ namespace gpio
         {
             uint32_t crl_tmp = port->CRL;
             // clear current mode
-            crl_tmp &= ~(0xF << (pin * 4));
+            crl_tmp &= ~(0xFu << (pin * 4));
             // set floating input
             crl_tmp |= (uint32_t)_mode << (pin * 4);
             // write
@@ -19,7 +19,7 @@ namespace gpio
         {
             uint32_t crh_tmp = port->CRH;
             // clear current mode
-            crh_tmp &= ~(0xF << ((pin - 8) * 4));
+            crh_tmp &= ~(0xFu << ((pin - 8) * 4));
             // set floating input
             crh_tmp |= (uint32_t)_mode << ((pin - 8) * 4);
             // write
@@ -36,6 +36,6 @@ namespace gpio
 
     Pin::~Pin()
     {
-        setMode(GPIOMode::inFloating);
+        setMode(GPIOMode::in_Floating);
     }
 }
