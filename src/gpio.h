@@ -18,10 +18,11 @@ namespace gpio
         uint8_t pin;
         GPIOMode mode;
 
-        void setMode(GPIOMode mode);
 
     public:
         Pin(GPIO_TypeDef *_port, uint8_t _pin, GPIOMode _mode);
         ~Pin();
+        
+        void setMode(GPIOMode mode);
     };
 }

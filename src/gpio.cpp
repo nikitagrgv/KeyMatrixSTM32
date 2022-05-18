@@ -5,6 +5,7 @@ namespace gpio
 
     void Pin::setMode(GPIOMode _mode)
     {
+        mode = _mode;
         if (pin < 8)
         {
             uint32_t crl_tmp = port->CRL;
@@ -28,10 +29,9 @@ namespace gpio
     }
 
     Pin::Pin(GPIO_TypeDef *_port, uint8_t _pin, GPIOMode _mode) : port(_port),
-                                                                  pin(_pin),
-                                                                  mode(_mode)
+                                                                  pin(_pin)
     {
-        setMode(mode);
+        setMode(_mode);
     }
 
     Pin::~Pin()
