@@ -3,23 +3,41 @@
 #include "rcc.h"
 #include "gpio.h"
 
+enum class KeyMatrixState : uint8_t
+{
+    idle,
+    processing,
+    finished
+};
+
+class KeyMatrix
+{
+private:
+    gpio::Pin out_pins[3];
+    gpio::Pin in_pins[3];
+    uint8_t current_out_pin;
+    KeyMatrixState state;
+
+public:
+    KeyMatrix() : out_pins({{GPIOA, 0, gpio::GPIOMode::out_OpenDrain_50MHz},
+                            {GPIOA, 1, gpio::GPIOMode::out_OpenDrain_50MHz},
+                            {GPIOA, 2, gpio::GPIOMode::out_OpenDrain_50MHz}}),
+                  in_pins({{GPIOA, 3, gpio::GPIOMode::in_Floating},
+                           {GPIOA, 4, gpio::GPIOMode::in_Floating},
+                           {GPIOA, 5, gpio::GPIOMode::in_Floating}}),
+                  current_out_pin(0),
+                  state(KeyMatrixState::idle)
+    {
+        gpio::setMultiplePins(out_pins, 3, gpio::Level::High);
+    }
+
+    ~KeyMatrix();
+};
+
 int main()
 {
     rcc::setClock(rcc::RCCPort::gpioa, rcc::ClockMode::On);
-    rcc::setClock(rcc::RCCPort::gpiob, rcc::ClockMode::Off);
-
-
-    gpio::Pin pins[] = {
-        {GPIOA, 2, gpio::GPIOMode::out_OpenDrain_50MHz},
-        {GPIOB, 5, gpio::GPIOMode::out_PushPull_50MHz},
-        {GPIOA, 23, gpio::GPIOMode::outAlt_PushPull_50MHz}, // assert failed
-        {GPIOA, 11, gpio::GPIOMode::in_Floating}};
-
-    pins[0].setOutput(gpio::Level::High);
-    pins[1].setOutput(gpio::Level::High);
-    pins[2].setOutput(gpio::Level::High);
-    pins[3].setOutput(gpio::Level::High); // assert failed
-    pins[2].setOutput(gpio::Level::High);
+    KeyMatrix keymatrix;
 
     while (1)
         ;

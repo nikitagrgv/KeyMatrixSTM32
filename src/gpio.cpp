@@ -74,7 +74,7 @@ namespace gpio
     void setMultiplePins(Pin *pins, uint32_t count, Level level)
     {
         // GPIOA, GPIOB, GPIOC pins
-        uint16_t gpio_pins[3];
+        uint16_t gpio_pins[3] = {0, 0, 0};
 
         // set bits in corresponding gpio_pins
         for (uint32_t i = 0; i < count; ++i)

@@ -141,7 +141,11 @@
                 "STM32F10X_MD",
                 "_RTE_"
             ],
-            "intelliSenseMode": "${default}"
+            "intelliSenseMode": "gcc-x86",
+            "compilerArgs": [
+                "-Wno-c++98-compat -Wno-old-style-cast -Wno-gnu-array-member-paren-init"
+            ],
+            "compilerPath": "C:/MinGW/bin/g++.exe"
         }
     ],
     "version": 4
