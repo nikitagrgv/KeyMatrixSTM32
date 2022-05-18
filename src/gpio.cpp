@@ -50,11 +50,43 @@ namespace gpio
         }
     }
 
-
     Level Pin::getInput() const
     {
         // read the bit with the input value
         Level level = (Level)((port->IDR >> pin) & 1);
         return level;
+    }
+}
+
+namespace gpio
+{
+    void setMultiplePins(Pin *pins, uint32_t count, Level level)
+    {
+        // GPIOA, GPIOB, GPIOC pins
+        uint16_t gpio_pins[3];
+
+        // set bits in corresponding gpio_pins
+        for (uint32_t i = 0; i < count; ++i)
+        {
+            if (pins[i].port == GPIOA)
+                gpio_pins[0] |= 1 << pins[i].pin;
+            else if (pins[i].port == GPIOB)
+                gpio_pins[1] |= 1 << pins[i].pin;
+            else if (pins[i].port == GPIOC)
+                gpio_pins[2] |= 1 << pins[i].pin;
+        }
+
+        if (level == Level::High)
+        {
+            GPIOA->BSRR = gpio_pins[0];
+            GPIOB->BSRR = gpio_pins[1];
+            GPIOC->BSRR = gpio_pins[2];
+        }
+        else
+        {
+            GPIOA->BRR = gpio_pins[0];
+            GPIOB->BRR = gpio_pins[1];
+            GPIOC->BRR = gpio_pins[2];
+        }
     }
 }

@@ -24,6 +24,8 @@ namespace gpio
         uint8_t pin;
         GPIOMode mode;
 
+        friend void setMultiplePins(Pin *pins, uint32_t count, Level level);
+
     public:
         Pin(GPIO_TypeDef *_port, uint8_t _pin, GPIOMode _mode);
         ~Pin();
@@ -32,6 +34,4 @@ namespace gpio
         void setOutput(Level level);
         Level getInput() const;
     };
-
-
 }

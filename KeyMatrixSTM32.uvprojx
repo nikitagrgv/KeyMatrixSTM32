@@ -398,6 +398,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\gpio.cpp</FilePath>
             </File>
+            <File>
+              <FileName>misc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\misc.h</FilePath>
+            </File>
+            <File>
+              <FileName>misc.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\misc.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
