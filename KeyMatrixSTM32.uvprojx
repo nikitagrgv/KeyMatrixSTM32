@@ -408,6 +408,26 @@
               <FileType>8</FileType>
               <FilePath>.\src\misc.cpp</FilePath>
             </File>
+            <File>
+              <FileName>rcc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\rcc.h</FilePath>
+            </File>
+            <File>
+              <FileName>rcc.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\rcc.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>timers.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\timers.h</FilePath>
+            </File>
+            <File>
+              <FileName>timers.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\timers.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -1,12 +1,16 @@
 #include "gpio.h"
 #include "misc.h"
+#include "rcc.h"
 
 namespace gpio
 {
     Pin::Pin(GPIO_TypeDef *_port, uint8_t _pin, GPIOMode _mode) : port(_port),
                                                                   pin(_pin)
     {
-        assert_param(_port == GPIOA || _port == GPIOB || _port == GPIOC);
+        assert_param(_port == GPIOA && rcc::getClock(rcc::RCCPort::gpioa) == rcc::ClockMode::On ||
+                     _port == GPIOB && rcc::getClock(rcc::RCCPort::gpiob) == rcc::ClockMode::On ||
+                     _port == GPIOC && rcc::getClock(rcc::RCCPort::gpioc) == rcc::ClockMode::On);
+
         assert_param(_pin < 16);
 
         setMode(_mode);
