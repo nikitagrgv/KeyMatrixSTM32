@@ -14,3 +14,10 @@ void waitMs(uint32_t ms)
     while (!(SysTick->CTRL & SysTick_CTRL_COUNTFLAG))
         ;
 }
+
+// infinite loop when assert failed
+void assert_failed(uint8_t *file, uint32_t line)
+{
+    while (1)
+        ;
+}

@@ -1,5 +1,8 @@
 #include "stm32f10x.h"
+#include "misc.h"
 #include "gpio.h"
+
+
 
 int main()
 {

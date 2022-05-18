@@ -10,6 +10,7 @@
                 "c:\\Users\\nekita\\Desktop\\uirs\\KeyMatrixSTM32\\src"
             ],
             "defines": [
+                "USE_FULL_ASSERT",
                 "__alignof__(x)=",
                 "__asm(x)=",
                 "__asm__(x)=",
@@ -80,6 +81,7 @@
                 "C:\\Users\\nekita\\AppData\\Local\\Arm\\Packs\\Keil\\STM32F1xx_DFP\\2.4.0\\Device\\Include"
             ],
             "defines": [
+                "USE_FULL_ASSERT",
                 "__alignof__(x)=",
                 "__asm(x)=",
                 "__asm__(x)=",
