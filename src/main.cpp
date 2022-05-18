@@ -2,6 +2,7 @@
 #include "misc.h"
 #include "rcc.h"
 #include "gpio.h"
+#include "timers.h"
 
 enum class KeyMatrixState : uint8_t
 {
@@ -38,6 +39,18 @@ int main()
 {
     rcc::setClock(rcc::RCCPort::gpioa, rcc::ClockMode::On);
     KeyMatrix keymatrix;
+
+    gpio::Pin pin(GPIOA, 6, gpio::GPIOMode::out_PushPull_50MHz);
+
+    auto invert = [](void) -> void
+    {
+        GPIOA->ODR ^= GPIO_ODR_ODR6;
+    };
+
+    systick::setCallback(invert);
+
+    systick::waitMsInt(12);
+
 
     while (1)
         ;
