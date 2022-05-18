@@ -8,10 +8,18 @@ int main()
 {
 
     gpio::Pin pins[] = {
-        {GPIOA, 13, gpio::GPIOMode::out_OpenDrain_50MHz},
+        {GPIOA, 2, gpio::GPIOMode::out_OpenDrain_50MHz},
         {GPIOB, 5, gpio::GPIOMode::out_PushPull_50MHz},
-        {GPIOA, 8, gpio::GPIOMode::outAlt_PushPull_50MHz},
-        {GPIOA, 11, gpio::GPIOMode::out_OpenDrain_50MHz}};
+        {GPIOA, 23, gpio::GPIOMode::outAlt_PushPull_50MHz}, // assert failed
+        {GPIOA, 11, gpio::GPIOMode::in_Floating}};
+
+
+    pins[0].setOutput(gpio::Level::High);
+    pins[1].setOutput(gpio::Level::High);
+    pins[2].setOutput(gpio::Level::High);
+    pins[3].setOutput(gpio::Level::High); // assert failed
+    pins[2].setOutput(gpio::Level::High);
+
 
     while (1)
         ;

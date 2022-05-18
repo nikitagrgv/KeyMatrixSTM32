@@ -1,10 +1,14 @@
 #include "gpio.h"
+#include "misc.h"
 
 namespace gpio
 {
     Pin::Pin(GPIO_TypeDef *_port, uint8_t _pin, GPIOMode _mode) : port(_port),
                                                                   pin(_pin)
     {
+        assert_param(_port == GPIOA || _port == GPIOB || _port == GPIOC);
+        assert_param(_pin < 16);
+
         setMode(_mode);
     }
 
@@ -40,6 +44,9 @@ namespace gpio
 
     void Pin::setOutput(Level level)
     {
+        // assert output mode
+        assert_param((uint8_t)mode & 0x3 != 0x0);
+
         if (level == Level::High)
         {
             port->BSRR = GPIO_BSRR_BS0 + pin;
