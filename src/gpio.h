@@ -11,6 +11,12 @@ namespace gpio
         outAlt_PushPull_50MHz = 0xB
     };
 
+    enum class Level : uint8_t
+    {
+        Low = 0,
+        High = 1
+    };
+
     class Pin
     {
     private:
@@ -18,11 +24,14 @@ namespace gpio
         uint8_t pin;
         GPIOMode mode;
 
-
     public:
         Pin(GPIO_TypeDef *_port, uint8_t _pin, GPIOMode _mode);
         ~Pin();
-        
+
         void setMode(GPIOMode mode);
+        void setOutput(Level level);
+        Level getInput() const;
     };
+
+
 }
