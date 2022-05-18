@@ -68,12 +68,12 @@ namespace gpio
         // set bits in corresponding gpio_pins
         for (uint32_t i = 0; i < count; ++i)
         {
-            if (pins[i].port == GPIOA)
-                gpio_pins[0] |= 1 << pins[i].pin;
-            else if (pins[i].port == GPIOB)
-                gpio_pins[1] |= 1 << pins[i].pin;
-            else if (pins[i].port == GPIOC)
-                gpio_pins[2] |= 1 << pins[i].pin;
+            if (pins[i].getPort() == GPIOA)
+                gpio_pins[0] |= 1 << pins[i].getPin();
+            else if (pins[i].getPort() == GPIOB)
+                gpio_pins[1] |= 1 << pins[i].getPin();
+            else if (pins[i].getPort() == GPIOC)
+                gpio_pins[2] |= 1 << pins[i].getPin();
         }
 
         if (level == Level::High)
