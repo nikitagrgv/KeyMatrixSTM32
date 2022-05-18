@@ -30,7 +30,7 @@ bool getBit(uint32_t address, uint8_t bit)
 }
 
 // infinite loop when assert failed
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed(const char *file, uint32_t line)
 {
     while (1)
         ;

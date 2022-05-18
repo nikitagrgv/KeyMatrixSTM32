@@ -49,7 +49,7 @@ namespace gpio
     void Pin::setOutput(Level level)
     {
         // assert output mode
-        assert_param((uint8_t)mode & 0x3 != 0x0);
+        assert_param(((uint8_t)mode & 0x3) != 0x0);
 
         if (level == Level::High)
         {
