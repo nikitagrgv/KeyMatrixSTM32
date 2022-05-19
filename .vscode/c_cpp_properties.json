@@ -145,7 +145,7 @@
             "compilerArgs": [
                 "-Wno-c++98-compat -Wno-old-style-cast -Wno-gnu-array-member-paren-init"
             ],
-            "compilerPath": "C:/MinGW/bin/g++.exe"
+            "compilerPath": "C:\\Keil_v5\\ARM\\ARMCC\\bin\\armcc.exe"
         }
     ],
     "version": 4
