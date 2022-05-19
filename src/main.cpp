@@ -16,7 +16,12 @@ int main()
                                           {GPIOA, 4, gpio::GPIOMode::in_Floating},
                                           {GPIOA, 5, gpio::GPIOMode::in_Floating}};
 
-    KeyMatrix::init(out_pins, 3, in_pins, 3);
+    KeyMatrix::init(out_pins, 3, in_pins, 3, 1);
+
+    KeyMatrix::startProcessing();
+
+    while (KeyMatrix::getState() != KeyMatrixState::finished)
+        ;
 
     while (1)
         ;

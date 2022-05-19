@@ -53,11 +53,11 @@ namespace gpio
 
         if (level == Level::High)
         {
-            port->BSRR = GPIO_BSRR_BS0 + pin;
+            port->BSRR = 1 << pin;
         }
         else
         {
-            port->BSRR = GPIO_BSRR_BR0 + pin;
+            port->BRR = 1 << pin;
         }
     }
 

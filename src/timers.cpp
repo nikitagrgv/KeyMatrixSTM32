@@ -43,7 +43,7 @@ namespace systick
 
     void setCallback(callbackFunction new_callback)
     {
-        assert_param((SysTick->CTRL & SysTick_CTRL_ENABLE) != 0);
+        assert_param((SysTick->CTRL & SysTick_CTRL_ENABLE) == 0);
         callback = new_callback;
     }
 }
