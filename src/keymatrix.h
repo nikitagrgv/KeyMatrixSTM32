@@ -32,8 +32,7 @@ public:
     static uint8_t getKey(uint8_t i, uint8_t j);
 
     static void init(gpio::Pin *_out_pins, uint8_t _out_pins_count,
-                     gpio::Pin *_in_pins, uint8_t _in_pins_count,
-                     uint8_t *_keys_array);
+                     gpio::Pin *_in_pins, uint8_t _in_pins_count);
 
 private:
     KeyMatrix() = default;

@@ -22,14 +22,13 @@ uint8_t KeyMatrix::getKey(uint8_t i, uint8_t j)
 }
 
 void KeyMatrix::init(gpio::Pin *_out_pins, uint8_t _out_pins_count,
-                     gpio::Pin *_in_pins, uint8_t _in_pins_count,
-                     uint8_t *_keys_array)
+                     gpio::Pin *_in_pins, uint8_t _in_pins_count)
 {
     out_pins = _out_pins;
     out_pins_count = _out_pins_count;
     in_pins = _in_pins;
     in_pins_count = _in_pins_count;
-    keys = _keys_array;
+    keys = new uint8_t[_out_pins_count * _in_pins_count];
 
     current_out_pin = 0;
     state = KeyMatrixState::idle;

@@ -15,9 +15,8 @@ int main()
     gpio::Pin *in_pins = new gpio::Pin[3]{{GPIOA, 3, gpio::GPIOMode::in_Floating},
                                           {GPIOA, 4, gpio::GPIOMode::in_Floating},
                                           {GPIOA, 5, gpio::GPIOMode::in_Floating}};
-    uint8_t *keys_array = new uint8_t[3 * 3];
 
-    KeyMatrix::init(out_pins, 3, in_pins, 3, keys_array);
+    KeyMatrix::init(out_pins, 3, in_pins, 3);
 
     while (1)
         ;
