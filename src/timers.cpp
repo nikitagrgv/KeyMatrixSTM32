@@ -5,7 +5,7 @@
 namespace systick
 {
     // callback function for SysTick
-    static void (*callback)(void) = nullptr;
+    static callbackFunction callback = nullptr;
 
     // maximim 233 ms
     void waitMs(uint32_t ms)
@@ -41,8 +41,9 @@ namespace systick
                         SysTick_CTRL_TICKINT;
     }
 
-    void setCallback(void (*new_callback)(void))
+    void setCallback(callbackFunction new_callback)
     {
+        assert_param((SysTick->CTRL & SysTick_CTRL_ENABLE) != 0);
         callback = new_callback;
     }
 }
@@ -54,11 +55,10 @@ extern "C"
     {
         // clear interrupt flag
         SysTick->VAL = 0;
+        // disable timer
+        SysTick->CTRL = 0;
 
         // call callback function
         systick::callback();
-        
-        // disable timer
-        SysTick->CTRL = 0;
     }
 }
