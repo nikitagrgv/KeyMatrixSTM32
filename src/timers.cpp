@@ -10,8 +10,8 @@ namespace systick
     // maximim 233 ms
     void waitMs(uint32_t ms)
     {
-        // assert 24-bit value
-        assert_param(ms <= 233);
+        // assert 24-bit value and non zero value
+        assert_param(ms <= 233 && ms != 0);
 
         // set reload value
         SysTick->LOAD = ms * (SYS_FREQ / 1000);
@@ -28,8 +28,8 @@ namespace systick
     // wait with interrupt
     void waitMsInt(uint32_t ms)
     {
-        // assert 24-bit value
-        assert_param(ms <= 233);
+        // assert 24-bit value and non zero value
+        assert_param(ms <= 233 && ms != 0);
         // assert callback function
         assert_param(callback != nullptr);
 
