@@ -438,6 +438,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\keymatrix.cpp</FilePath>
             </File>
+            <File>
+              <FileName>uart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\uart.h</FilePath>
+            </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\uart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
