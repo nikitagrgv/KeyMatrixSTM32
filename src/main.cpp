@@ -3,7 +3,15 @@
 #include "rcc.h"
 #include "gpio.h"
 #include "timers.h"
+#include "usart.h"
 #include "keymatrix.h"
+
+volatile uint16_t GGG = 0;
+
+void ggg(uint16_t g)
+{
+    GGG = g;
+}
 
 int main()
 {
@@ -22,6 +30,11 @@ int main()
 
     while (KeyMatrix::getState() != KeyMatrixState::finished)
         ;
+
+    rcc::setClock(rcc::RCCPort::usart1, rcc::ClockMode::On);
+    usart::Usart usart1(USART1, 9600);
+    usart1.setReceiveCallback(ggg);
+    usart1.enableReceiver();
 
     while (1)
         ;

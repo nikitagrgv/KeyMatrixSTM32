@@ -4,6 +4,13 @@
 
 namespace usart
 {
+    static CallbackReceive callback_USART1_receive = nullptr;
+    static CallbackReceive callback_USART2_receive = nullptr;
+    static CallbackReceive callback_USART3_receive = nullptr;
+}
+
+namespace usart
+{
     Usart::Usart(USART_TypeDef *_usart_struct, uint32_t _baudrate)
     {
         assert_param(_usart_struct == USART1 && rcc::getClock(rcc::RCCPort::usart1) == rcc::ClockMode::On ||
@@ -23,20 +30,20 @@ namespace usart
         usart_struct->CR1 &= ~USART_CR1_UE;
     }
 
-    inline void Usart::enableTransmitter()
+    void Usart::enableTransmitter()
     {
         usart_struct->CR1 |= USART_CR1_TE;
     }
-    inline void Usart::enableReceiver()
+    void Usart::enableReceiver()
     {
         usart_struct->CR1 |= USART_CR1_RE;
     }
 
-    inline void Usart::disableTransmitter()
+    void Usart::disableTransmitter()
     {
         usart_struct->CR1 &= ~USART_CR1_TE;
     }
-    inline void Usart::disableReceiver()
+    void Usart::disableReceiver()
     {
         usart_struct->CR1 &= ~USART_CR1_RE;
     }
@@ -45,25 +52,24 @@ namespace usart
     {
         if (usart_struct == USART1)
         {
+            NVIC_EnableIRQ(USART1_IRQn);
             callback_USART1_receive = callback;
         }
         else if (usart_struct == USART2)
         {
+            NVIC_EnableIRQ(USART2_IRQn);
             callback_USART2_receive = callback;
         }
         else if (usart_struct == USART3)
         {
+            NVIC_EnableIRQ(USART3_IRQn);
             callback_USART3_receive = callback;
         }
+
+        // enable receive interrupt
+        usart_struct->CR1 |= USART_CR1_RXNEIE;
     }
 
-}
-
-namespace usart
-{
-    static CallbackReceive callback_USART1_receive = nullptr;
-    static CallbackReceive callback_USART2_receive = nullptr;
-    static CallbackReceive callback_USART3_receive = nullptr;
 }
 
 extern "C"
