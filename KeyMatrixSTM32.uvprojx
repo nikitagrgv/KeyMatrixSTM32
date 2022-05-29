@@ -439,14 +439,14 @@
               <FilePath>.\src\keymatrix.cpp</FilePath>
             </File>
             <File>
-              <FileName>uart.h</FileName>
+              <FileName>usart.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\uart.h</FilePath>
+              <FilePath>.\src\usart.h</FilePath>
             </File>
             <File>
-              <FileName>uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\uart.c</FilePath>
+              <FileName>usart.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\usart.cpp</FilePath>
             </File>
           </Files>
         </Group>

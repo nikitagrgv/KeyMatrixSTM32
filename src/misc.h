@@ -1,6 +1,8 @@
 #pragma once
 #include "stm32f10x.h"
 
+const uint32_t SYS_FREQ = 72e6;
+
 typedef void (*callbackFunction)();
 
 void setBit(uint32_t address, uint8_t bit, bool value);
