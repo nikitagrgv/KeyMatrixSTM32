@@ -33,14 +33,16 @@ private:
     static void waitNext_Callback();
 
 public:
-    static bool getKey(uint8_t row, uint8_t col);
-    static KeyMatrixState getState();
-
     static void init(gpio::Pin *_out_pins, uint8_t _out_pins_count,
                      gpio::Pin *_in_pins, uint8_t _in_pins_count,
                      uint32_t _period_ms);
 
     static void startProcessing();
+
+    static bool getKey(uint8_t row, uint8_t col);
+    static KeyMatrixState getState();
+    static inline uint8_t getRowCount() { return out_pins_count; }
+    static inline uint8_t getColCount() { return in_pins_count; }
 
 private:
     KeyMatrix() = default;

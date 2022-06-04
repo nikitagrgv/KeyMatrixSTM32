@@ -2,9 +2,9 @@
 #include "timers.h"
 
 gpio::Pin *KeyMatrix::out_pins = nullptr;
-uint8_t KeyMatrix::out_pins_count = 0;
-
 gpio::Pin *KeyMatrix::in_pins = nullptr;
+
+uint8_t KeyMatrix::out_pins_count = 0;
 uint8_t KeyMatrix::in_pins_count = 0;
 
 uint32_t KeyMatrix::period_ms = 0;
@@ -29,7 +29,6 @@ KeyMatrixState KeyMatrix::getState()
     return state;
 }
 
-
 void KeyMatrix::init(gpio::Pin *_out_pins, uint8_t _out_pins_count,
                      gpio::Pin *_in_pins, uint8_t _in_pins_count,
                      uint32_t _period_ms)
@@ -48,7 +47,7 @@ void KeyMatrix::init(gpio::Pin *_out_pins, uint8_t _out_pins_count,
     }
 
     // set all out pins to high
-    gpio::setMultiplePins(out_pins, out_pins_count, gpio::Level::High);
+    gpio::setMultiplePins(out_pins, out_pins_count, true);
 }
 
 void KeyMatrix::startProcessing()
@@ -57,11 +56,11 @@ void KeyMatrix::startProcessing()
 
     // set the current out pin to low
     current_out_pin = 0;
-    out_pins[current_out_pin].setOutput(gpio::Level::Low);
+    out_pins[current_out_pin].setOutput(false);
 
     // start processing the keymatrix with a systick interrupt
     systick::setCallback(waitNext_Callback);
-    systick::waitMsInt(period_ms);
+    systick::waitMsInt(period_ms, true);
 }
 
 void KeyMatrix::waitNext_Callback()
@@ -69,13 +68,13 @@ void KeyMatrix::waitNext_Callback()
     // set corresponding keys levels
     for (uint8_t col = 0; col < in_pins_count; col++)
     {
-        key(current_out_pin, col) = (bool)in_pins[col].getInput();
+        key(current_out_pin, col) = !((bool)in_pins[col].getInput());
     }
 
     // go to next row
     current_out_pin++;
     // set high level in all rows
-    gpio::setMultiplePins(out_pins, 3, gpio::Level::High);
+    gpio::setMultiplePins(out_pins, 3, true);
 
     // if last row, finish
     if (current_out_pin == out_pins_count)
@@ -85,8 +84,8 @@ void KeyMatrix::waitNext_Callback()
     else
     {
         // set low level in current row
-        out_pins[current_out_pin].setOutput(gpio::Level::Low);
+        out_pins[current_out_pin].setOutput(false);
         // wait next callback
-        systick::waitMsInt(period_ms);
+        systick::waitMsInt(period_ms, true);
     }
 }
