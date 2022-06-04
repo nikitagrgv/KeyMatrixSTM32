@@ -173,7 +173,8 @@ void Modbus::processPacket()
     static uint8_t key_matrix_cols = KeyMatrix::getColCount();
 
     // check address and count of requested registers
-    if (start_address + registers_count >= key_matrix_cols * key_matrix_rows)
+    if (start_address + registers_count > key_matrix_cols * key_matrix_rows ||
+        registers_count == 0)
     {
         formError(0x03); // error code 0x02 - invalid address or registers count
         return;
@@ -205,8 +206,10 @@ void Modbus::processPacket()
         {
             pack_out.push(curr_byte);
             curr_byte_num++;
+            curr_byte = 0x00;
         }
-        curr_byte |= (uint16_t)KeyMatrix::getKey(reg / key_matrix_rows, reg % key_matrix_rows) << (reg % 8u);
+        // curr_byte |= (uint16_t)KeyMatrix::getKey(reg / key_matrix_rows, reg % key_matrix_rows) << (reg % 8u);
+        curr_byte |= (uint16_t)KeyMatrix::getKey(0, reg) << (reg % 8u);
     }
     pack_out.push(curr_byte);
 
