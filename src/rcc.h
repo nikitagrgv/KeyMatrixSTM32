@@ -18,12 +18,6 @@ namespace rcc
         usart1 = 14 + 32
     };
 
-    enum class ClockMode : uint8_t
-    {
-        Off = 0,
-        On = 1
-    };
-
-    void setClock(RCCPort port, ClockMode mode);
-    ClockMode getClock(RCCPort port);
+    void setClock(RCCPort port, bool mode);
+    bool getClock(RCCPort port);
 }

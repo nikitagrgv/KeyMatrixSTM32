@@ -2,41 +2,38 @@
 
 namespace rcc
 {
-    void setClock(RCCPort port, ClockMode mode)
+    void setClock(RCCPort port, bool mode)
     {
+        switch ((uint8_t)port / 32)
+        {
         // APB1 port
-        if ((uint8_t)port / 32 == 0)
-        {
-            setBit((uint32_t) & (RCC->APB1ENR), (uint8_t)port - 0, (bool)mode);
-        }
+        case 0:
+            setBit((uint32_t) & (RCC->APB1ENR), (uint8_t)port - 0, mode);
+            break;
         // APB2 port
-        else if ((uint8_t)port / 32 == 1)
-        {
-            setBit((uint32_t) & (RCC->APB2ENR), (uint8_t)port - 32, (bool)mode);
-        }
+        case 1:
+            setBit((uint32_t) & (RCC->APB2ENR), (uint8_t)port - 32, mode);
+            break;
         // AHB port
-        else
-        {
-            setBit((uint32_t) & (RCC->AHBENR), (uint8_t)port - 64, (bool)mode);
+        case 2:
+            setBit((uint32_t) & (RCC->AHBENR), (uint8_t)port - 64, mode);
+            break;
         }
     }
 
-    ClockMode getClock(RCCPort port)
+    bool getClock(RCCPort port)
     {
+        switch ((uint8_t)port / 32)
+        {
         // APB1 port
-        if ((uint8_t)port / 32 == 0)
-        {
-            return (ClockMode)getBit((uint32_t)&RCC->APB1ENR, (uint8_t)port - 0);
-        }
+        case 0:
+            return getBit((uint32_t)&RCC->APB1ENR, (uint8_t)port - 0);
         // APB2 port
-        else if ((uint8_t)port / 32 == 1)
-        {
-            return (ClockMode)getBit((uint32_t)&RCC->APB2ENR, (uint8_t)port - 32);
-        }
+        case 1:
+            return getBit((uint32_t)&RCC->APB2ENR, (uint8_t)port - 32);
         // AHB port
-        else
-        {
-            return (ClockMode)getBit((uint32_t)&RCC->AHBENR, (uint8_t)port - 64);
+        default:
+            return getBit((uint32_t)&RCC->AHBENR, (uint8_t)port - 64);
         }
     }
 }
