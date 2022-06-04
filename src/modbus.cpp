@@ -208,6 +208,7 @@ void Modbus::processPacket()
         }
         curr_byte |= (uint16_t)KeyMatrix::getKey(reg / key_matrix_rows, reg % key_matrix_rows) << (reg % 8u);
     }
+    pack_out.push(curr_byte);
 
     addCRC();
     state = ModbusState::processed;
