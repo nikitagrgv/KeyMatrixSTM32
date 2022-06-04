@@ -25,6 +25,7 @@ namespace gpio
 
         void setMode(GPIOMode mode);
         void setOutput(bool level);
+        void setPullMode(bool level);
         
         bool getInput() const;
 

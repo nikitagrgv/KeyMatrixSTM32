@@ -61,6 +61,14 @@ namespace gpio
         }
     }
 
+    void Pin::setPullMode(bool level)
+    {
+        // assert pull up/down mode
+        assert_param(mode == GPIOMode::in_pullUpDown);
+        // set output bit to choose pull up/down
+        setOutput(level);
+    }
+
     bool Pin::getInput() const
     {
         // read the bit with the input value
