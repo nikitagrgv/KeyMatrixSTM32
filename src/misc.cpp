@@ -31,7 +31,7 @@ bool getBit(uint32_t address, uint8_t bit)
 
 // infinite loop when assert failed
 #ifdef USE_FULL_ASSERT
-void assert_failed(const char *file, uint32_t line)
+void assert_failed(volatile const char *file, volatile uint32_t line)
 {
     while (1)
         ;
