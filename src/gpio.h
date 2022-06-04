@@ -6,15 +6,11 @@ namespace gpio
     enum class GPIOMode : uint8_t
     {
         in_Floating = 0x4,
+        in_pullUpDown = 0x8,
         out_PushPull_50MHz = 0x3,
         out_OpenDrain_50MHz = 0x7,
-        outAlt_PushPull_50MHz = 0xB
-    };
-
-    enum class Level : uint8_t
-    {
-        Low = 0,
-        High = 1
+        outAlt_PushPull_50MHz = 0xB,
+        
     };
 
     class Pin
@@ -29,14 +25,18 @@ namespace gpio
         ~Pin();
 
         void setMode(GPIOMode mode);
-        void setOutput(Level level);
-        Level getInput() const;
+        void setOutput(bool level);
+        
+        bool getInput() const;
+
+        // getters
         GPIO_TypeDef *getPort() const { return port; }
         uint8_t getPin() const { return pin; }
+        GPIOMode getMode() const { return mode; }
     };
 }
 
 namespace gpio
 {
-    void setMultiplePins(Pin *pins, uint32_t count, Level level);
+    void setMultiplePins(Pin *pins, uint32_t count, bool level);
 }

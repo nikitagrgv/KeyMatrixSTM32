@@ -7,9 +7,9 @@ namespace gpio
     Pin::Pin(GPIO_TypeDef *_port, uint8_t _pin, GPIOMode _mode) : port(_port),
                                                                   pin(_pin)
     {
-        assert_param(_port == GPIOA && rcc::getClock(rcc::RCCPort::gpioa) == rcc::ClockMode::On ||
-                     _port == GPIOB && rcc::getClock(rcc::RCCPort::gpiob) == rcc::ClockMode::On ||
-                     _port == GPIOC && rcc::getClock(rcc::RCCPort::gpioc) == rcc::ClockMode::On);
+        assert_param(_port == GPIOA && rcc::getClock(rcc::RCCPort::gpioa) == true ||
+                     _port == GPIOB && rcc::getClock(rcc::RCCPort::gpiob) == true ||
+                     _port == GPIOC && rcc::getClock(rcc::RCCPort::gpioc) == true);
 
         assert_param(_pin < 16);
 
@@ -46,32 +46,31 @@ namespace gpio
         }
     }
 
-    void Pin::setOutput(Level level)
+    void Pin::setOutput(bool level)
     {
         // assert output mode
-        assert_param(((uint8_t)mode & 0x3) != 0x0);
+        assert_param(((uint8_t)mode & 0b0011) != 0);
 
-        if (level == Level::High)
+        if (level == true)
         {
-            port->BSRR = 1 << pin;
+            port->BSRR = 1u << pin;
         }
         else
         {
-            port->BRR = 1 << pin;
+            port->BRR = 1u << pin;
         }
     }
 
-    Level Pin::getInput() const
+    bool Pin::getInput() const
     {
         // read the bit with the input value
-        Level level = (Level)((port->IDR >> pin) & 1);
-        return level;
+        return ((port->IDR >> pin) & 1);
     }
 }
 
 namespace gpio
 {
-    void setMultiplePins(Pin *pins, uint32_t count, Level level)
+    void setMultiplePins(Pin *pins, uint32_t count, bool level)
     {
         // GPIOA, GPIOB, GPIOC pins
         uint16_t gpio_pins[3] = {0, 0, 0};
@@ -80,14 +79,14 @@ namespace gpio
         for (uint32_t i = 0; i < count; ++i)
         {
             if (pins[i].getPort() == GPIOA)
-                gpio_pins[0] |= 1 << pins[i].getPin();
+                gpio_pins[0] |= 1u << pins[i].getPin();
             else if (pins[i].getPort() == GPIOB)
-                gpio_pins[1] |= 1 << pins[i].getPin();
+                gpio_pins[1] |= 1u << pins[i].getPin();
             else if (pins[i].getPort() == GPIOC)
-                gpio_pins[2] |= 1 << pins[i].getPin();
+                gpio_pins[2] |= 1u << pins[i].getPin();
         }
 
-        if (level == Level::High)
+        if (level == true)
         {
             GPIOA->BSRR = gpio_pins[0];
             GPIOB->BSRR = gpio_pins[1];
