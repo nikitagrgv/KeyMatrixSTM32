@@ -66,7 +66,14 @@ namespace gpio
         // assert pull up/down mode
         assert_param(mode == GPIOMode::in_pullUpDown);
         // set output bit to choose pull up/down
-        setOutput(level);
+        if (level == true)
+        {
+            port->BSRR = 1u << pin;
+        }
+        else
+        {
+            port->BRR = 1u << pin;
+        }
     }
 
     bool Pin::getInput() const
