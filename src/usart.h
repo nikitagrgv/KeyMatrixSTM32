@@ -3,7 +3,7 @@
 
 namespace usart
 {
-    typedef void (*CallbackReceive)(uint16_t data);
+    typedef void (*CallbackReceive)(uint8_t data);
 
     class Usart
     {
@@ -21,6 +21,8 @@ namespace usart
         void disableReceiver();
 
         void setReceiveCallback(CallbackReceive callback);
+
+        void transmit(uint8_t *data, uint32_t size);
     };
 
 }

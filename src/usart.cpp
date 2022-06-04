@@ -13,9 +13,9 @@ namespace usart
 {
     Usart::Usart(USART_TypeDef *_usart_struct, uint32_t _baudrate)
     {
-        assert_param(_usart_struct == USART1 && rcc::getClock(rcc::RCCPort::usart1) == rcc::ClockMode::On ||
-                     _usart_struct == USART2 && rcc::getClock(rcc::RCCPort::usart2) == rcc::ClockMode::On ||
-                     _usart_struct == USART3 && rcc::getClock(rcc::RCCPort::usart3) == rcc::ClockMode::On);
+        assert_param(_usart_struct == USART1 && rcc::getClock(rcc::RCCPort::usart1) == true ||
+                     _usart_struct == USART2 && rcc::getClock(rcc::RCCPort::usart2) == true ||
+                     _usart_struct == USART3 && rcc::getClock(rcc::RCCPort::usart3) == true);
 
         usart_struct = _usart_struct;
         // set baudrate
@@ -70,6 +70,17 @@ namespace usart
         usart_struct->CR1 |= USART_CR1_RXNEIE;
     }
 
+    // ----------- TODO: no waiting-------------------------
+    void Usart::transmit(uint8_t *data, uint32_t size)
+    {
+        for (uint32_t i = 0; i < size; i++)
+        {
+            while (!(usart_struct->SR & USART_SR_TXE))
+                ;
+            usart_struct->DR = data[i];
+        }
+    }
+
 }
 
 extern "C"
@@ -79,7 +90,7 @@ extern "C"
         // receive interrupt
         if (USART1->SR & USART_SR_RXNE)
         {
-            usart::callback_USART1_receive(USART1->DR);
+            usart::callback_USART1_receive((uint8_t)USART1->DR);
         }
     }
 
@@ -88,7 +99,7 @@ extern "C"
         // receive interrupt
         if (USART2->SR & USART_SR_RXNE)
         {
-            usart::callback_USART2_receive(USART2->DR);
+            usart::callback_USART2_receive((uint8_t)USART2->DR);
         }
     }
 
@@ -97,7 +108,7 @@ extern "C"
         // receive interrupt
         if (USART3->SR & USART_SR_RXNE)
         {
-            usart::callback_USART3_receive(USART3->DR);
+            usart::callback_USART3_receive((uint8_t)USART3->DR);
         }
     }
 }
