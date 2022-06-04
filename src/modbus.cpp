@@ -157,7 +157,7 @@ void Modbus::processPacket()
     }
 
     // size of packet for 0x02 function code must be 6+2
-    if (pack_out.size != 8)
+    if (pack_in.size != 8)
     {
         formError(0x03); // error code 0x03 - invalid data
         return;
