@@ -1,5 +1,6 @@
 #pragma once
 #include "stm32f10x.h"
+#include "misc.h"
 
 namespace usart
 {
@@ -23,6 +24,8 @@ namespace usart
         void setReceiveCallback(CallbackReceive callback);
 
         void transmit(uint8_t *data, uint32_t size);
+
+        inline uint32_t getBaudrate() { return SYS_FREQ / usart_struct->BRR; }
     };
 
 }
