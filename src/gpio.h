@@ -9,8 +9,7 @@ namespace gpio
         in_pullUpDown = 0x8,
         out_PushPull_50MHz = 0x3,
         out_OpenDrain_50MHz = 0x7,
-        outAlt_PushPull_50MHz = 0xB,
-        
+        outAlt_PushPull_50MHz = 0xB
     };
 
     class Pin
