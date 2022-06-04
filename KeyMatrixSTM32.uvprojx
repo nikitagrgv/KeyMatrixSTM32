@@ -114,9 +114,9 @@
           <SimDlgDll>DARMSTM.DLL</SimDlgDll>
           <SimDlgDllArguments>-pSTM32F103C8</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
-          <TargetDllArguments></TargetDllArguments>
-          <TargetDlgDll>TCM.DLL</TargetDlgDll>
-          <TargetDlgDllArguments>-pCM3</TargetDlgDllArguments>
+          <TargetDllArguments>-pSTM32F103C8</TargetDllArguments>
+          <TargetDlgDll>DARMSTM.DLL</TargetDlgDll>
+          <TargetDlgDllArguments>-pSTM32F103C8</TargetDlgDllArguments>
         </DllOption>
         <DebugOption>
           <OPTHX>
@@ -336,7 +336,7 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Wno-c++98-compat -Wno-old-style-cast -Wno-gnu-array-member-paren-init</MiscControls>
+              <MiscControls>-Wno-c++98-compat -Wno-old-style-cast -Wno-gnu-array-member-paren-init -Wno-c++98-c++11-compat-binary-literal</MiscControls>
               <Define>USE_FULL_ASSERT</Define>
               <Undefine></Undefine>
               <IncludePath></IncludePath>
@@ -447,6 +447,16 @@
               <FileName>usart.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\usart.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>modbus.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\modbus.h</FilePath>
+            </File>
+            <File>
+              <FileName>modbus.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\modbus.cpp</FilePath>
             </File>
           </Files>
         </Group>
