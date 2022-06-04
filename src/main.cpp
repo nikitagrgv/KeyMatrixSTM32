@@ -9,16 +9,17 @@
 
 int main()
 {
-    // enable clock for GPIOA port
+    // enable clock for port
     rcc::setClock(rcc::RCCPort::gpioa, true);
+    rcc::setClock(rcc::RCCPort::gpiob, true);
 
     // initialize outputs (in rows) and inputs (in columns)
-    gpio::Pin *out_pins = new gpio::Pin[3]{{GPIOA, 0, gpio::GPIOMode::out_OpenDrain_50MHz},
+    gpio::Pin *out_pins = new gpio::Pin[3]{{GPIOA, 2, gpio::GPIOMode::out_OpenDrain_50MHz},
                                            {GPIOA, 1, gpio::GPIOMode::out_OpenDrain_50MHz},
-                                           {GPIOA, 2, gpio::GPIOMode::out_OpenDrain_50MHz}};
-    gpio::Pin *in_pins = new gpio::Pin[3]{{GPIOA, 3, gpio::GPIOMode::in_pullUpDown},
-                                          {GPIOA, 4, gpio::GPIOMode::in_pullUpDown},
-                                          {GPIOA, 5, gpio::GPIOMode::in_pullUpDown}};
+                                           {GPIOA, 0, gpio::GPIOMode::out_OpenDrain_50MHz}};
+    gpio::Pin *in_pins = new gpio::Pin[3]{{GPIOB, 4, gpio::GPIOMode::in_pullUpDown},
+                                          {GPIOB, 5, gpio::GPIOMode::in_pullUpDown},
+                                          {GPIOB, 6, gpio::GPIOMode::in_pullUpDown}};
 
     // pull up for input pins
     in_pins[0].setPullMode(true);
@@ -35,7 +36,7 @@ int main()
     usart::Usart usart1(USART1, 9600);
 
     // initialize 3x3 key matrix
-    KeyMatrix::init(out_pins, 3, in_pins, 3, 10);
+    KeyMatrix::init(out_pins, 3, in_pins, 3, 1);
 
     // initialize modbus with an address 0x01, communication via usart1
     Modbus::init(0x01, &usart1, 32, 32);
