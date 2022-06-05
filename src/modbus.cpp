@@ -169,8 +169,8 @@ void Modbus::processPacket()
     uint16_t registers_count = ((uint16_t)pack_in.arr[5]) |
                                ((uint16_t)pack_in.arr[4] << 8u);
 
-    static uint8_t key_matrix_rows = KeyMatrix::getRowCount();
-    static uint8_t key_matrix_cols = KeyMatrix::getColCount();
+    uint8_t key_matrix_rows = KeyMatrix::getRowCount();
+    uint8_t key_matrix_cols = KeyMatrix::getColCount();
 
     // check address and count of requested registers
     if (start_address + registers_count > key_matrix_cols * key_matrix_rows ||
