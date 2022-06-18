@@ -52,7 +52,7 @@ void KeyMatrix::init(gpio::Pin *_out_pins, uint8_t _out_pins_count,
 
 void KeyMatrix::startProcessing()
 {
-    state = KeyMatrixState::wait_next;
+    state = KeyMatrixState::processing;
 
     // set the current out pin to low
     current_out_pin = 0;

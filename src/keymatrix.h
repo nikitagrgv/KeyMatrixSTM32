@@ -5,7 +5,7 @@
 enum class KeyMatrixState : uint8_t
 {
     idle,
-    wait_next,
+    processing,
     finished
 };
 
