@@ -146,6 +146,7 @@ void Modbus::processPacket()
     uint16_t crc = CRC16(pack_in.arr, pack_in.size - 2);
     if ((pack_in.arr[6] | (pack_in.arr[7] << 8)) != crc)
     {
+        state = ModbusState::idle;
         return;
     }
 
